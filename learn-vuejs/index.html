@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='ja'>
+  <head>
+    <title>Learn Vue.js</title>
+  </head>
+
+  <style>
+    #progress{
+      position: relative;
+      width: 500px;
+      height: 30px;
+      background-color: gray;
+    }
+    #bar {
+      position: absolute;
+      width: 0%;
+      height: 100%;
+      background-color: green;
+      border-radius: 10px;
+    }
+
+    </style>
+
+  <body>
+
+    <div id='progress'>
+      <div id='bar' v-bind:style="progressWidth"></div>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <script>
+
+    var app = new Vue({
+      el: '#bar',
+      data: {
+        progress: 0
+      },
+      computed: {
+        progressWidth: function() {
+          return "width:" + this.progress + "%"
+        }
+      }
+      
+    })
+
+const mainLoop = setInterval(function(){
+  app.progress += 1
+  if(app.progress >= 100){
+    app.progress = 100
+    clearInterval(mainLoop)
+  }
+}, 10)
+
+    </script>
+  </body>
+ </html>
